@@ -11,7 +11,7 @@ const UserApi = baseAPi.injectEndpoints({
           });
         }
         return {
-          url: "",
+          url: "/users",
           method: "",
           params,
         };
@@ -20,7 +20,7 @@ const UserApi = baseAPi.injectEndpoints({
     createUser: build.mutation({
       query: (data) => {
         return {
-          url: "",
+          url: "/users/register",
           method: "POST",
           body: data,
         };
