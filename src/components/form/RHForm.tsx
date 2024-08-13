@@ -2,7 +2,6 @@ import { Form } from "@/components/ui/form";
 import { ReactNode } from "react";
 import {
   FieldValues,
-  FormProvider,
   SubmitHandler,
   useForm,
 } from "react-hook-form";
@@ -39,9 +38,9 @@ const RHForm = ({
   };
 
   return (
-    <FormProvider {...methods}>
+    <Form {...methods}>
       <form onSubmit={methods.handleSubmit(submit)} >{children}</form>
-    </FormProvider>
+    </Form>
   );
 };
 

@@ -7,11 +7,11 @@ import {
 } from "@/components/ui/select"
 import {
   FormControl,
+  FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
-import { Controller } from "react-hook-form";
 type TSelectProps = {
     label: string 
     name: string 
@@ -25,10 +25,10 @@ type TSelectProps = {
 const PHSelect = ({label, name, options, placeholder} : TSelectProps) => {
 
   return (
-    <Controller
+    <FormField
     name={name}
     render={
-        ({field, fieldState: {error}})=>  <FormItem>
+        ({field})=>  <FormItem>
         <FormLabel>{label}</FormLabel>
         <Select onValueChange={field.onChange} defaultValue={field.value}>
           <FormControl>

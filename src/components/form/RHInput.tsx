@@ -1,11 +1,12 @@
 import {
   FormControl,
+  FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Controller, useFormContext } from "react-hook-form";
+import {useFormContext } from "react-hook-form";
 type TIProps = {
   name: string;
   placeholder?: string;
@@ -15,7 +16,7 @@ type TIProps = {
 const RHInput = ({ name, placeholder, label }: TIProps) => {
   const { control } = useFormContext();
   return (
-    <Controller
+    <FormField
       name={name}
       control={control}
       render={({ field }) => (

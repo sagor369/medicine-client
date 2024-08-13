@@ -54,5 +54,5 @@ export const baseAPi = createApi({
   // baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000/api/v1" }),
   // baseQuery: BaseQuery,
   endpoints: () => ({}),
-  tagTypes: ["users"],
+  tagTypes: ["users", "categorys", "products"],
 });

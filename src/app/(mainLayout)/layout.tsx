@@ -1,3 +1,5 @@
+import Footer from "@/components/Routes/Footer";
+import Nabvar from "@/components/Routes/Nabvar";
 import PageLayout from "@/components/utils/PageLayout";
 import { Metadata } from "next";
 
@@ -13,8 +15,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="bg-orange-100 bg-opacity-50">
+      <body className="bg-primary bg-opacity-20">
+        <Nabvar></Nabvar>
         <PageLayout>{children}</PageLayout>
+        <Footer/>
       </body>
     </html>
   );

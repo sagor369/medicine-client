@@ -1,9 +1,12 @@
+import CreateProductForm from '@/components/adminComponent/CreateProductForm';
+import PageTitle from '@/components/adminComponent/PageTitle';
 import React from 'react';
 
 const CreateProductpage = () => {
     return (
         <div>
-            create product page 
+            <PageTitle title='Product Create page'/>
+            <CreateProductForm/>
         </div>
     );
 };
