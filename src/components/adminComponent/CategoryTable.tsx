@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import {
   Table,
@@ -7,69 +8,56 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table";
-
+import { useGetCategoryQuery } from "@/redux/features/admin/CategorySlice";
+import Image from "next/image";
+import { Button } from "../ui/button";
+import { Edit2Icon, Trash } from "lucide-react";
+type TInvoice = {
+  categoryType: string;
+  name: string;
+  _id: string;
+  thumbnail: string;
+  slug: string;
+};
 const CategoryTable = () => {
-  const invoices = [
-    {
-      invoice: "INV001",
-      paymentStatus: "Paid",
-      totalAmount: "$250.00",
-      paymentMethod: "Credit Card",
-    },
-    {
-      invoice: "INV002",
-      paymentStatus: "Pending",
-      totalAmount: "$150.00",
-      paymentMethod: "PayPal",
-    },
-    {
-      invoice: "INV003",
-      paymentStatus: "Unpaid",
-      totalAmount: "$350.00",
-      paymentMethod: "Bank Transfer",
-    },
-    {
-      invoice: "INV004",
-      paymentStatus: "Paid",
-      totalAmount: "$450.00",
-      paymentMethod: "Credit Card",
-    },
-    {
-      invoice: "INV005",
-      paymentStatus: "Paid",
-      totalAmount: "$550.00",
-      paymentMethod: "PayPal",
-    },
-    {
-      invoice: "INV006",
-      paymentStatus: "Pending",
-      totalAmount: "$200.00",
-      paymentMethod: "Bank Transfer",
-    },
-    {
-      invoice: "INV007",
-      paymentStatus: "Unpaid",
-      totalAmount: "$300.00",
-      paymentMethod: "Credit Card",
-    },
-  ];
+  const { data, isFetching } = useGetCategoryQuery(undefined);
+if(isFetching){
+  return <div> Loading....</div>
+}  
   return (
     <Table>
       <TableHeader>
         <TableRow>
+          <TableHead>Image</TableHead>
           <TableHead className="w-[100px]">Name</TableHead>
           <TableHead>Slug</TableHead>
-          <TableHead>Thumbnail</TableHead>
-          <TableHead className="text-right">Category Type</TableHead>
+          <TableHead >Category Type</TableHead>
+          <TableHead>Action</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
-        {invoices.map((invoice) => (
-          <TableRow key={invoice.invoice}>
-            <TableCell className="font-medium">{invoice.invoice}</TableCell>
-            <TableCell>{invoice.paymentStatus}</TableCell>
-            <TableCell>{invoice.paymentMethod}</TableCell>
-            <TableCell className="text-right">{invoice.totalAmount}</TableCell>
+        {data?.data?.result?.map((invoice: TInvoice) => (
+          <TableRow key={invoice._id}>
+            <TableCell>
+              {" "}
+              <Image
+                className="w-32 h-20"
+                src={invoice.thumbnail}
+                width={500}
+                height={500}
+                alt=""
+              />
+            </TableCell>
+            <TableCell className="font-medium">{invoice.name}</TableCell>
+            <TableCell>{invoice.slug}</TableCell>
+            <TableCell>{invoice.categoryType}</TableCell>
+            <TableCell className="text-right">
+              <div>
+              <Button  className="hover:bg-cyan-700" ><Edit2Icon/></Button>
+              <Button className="bg-red-500 hover:bg-red-800 ml-2 text-white"><Trash/></Button>
+
+              </div>
+            </TableCell>
           </TableRow>
         ))}
       </TableBody>

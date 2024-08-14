@@ -1,3 +1,4 @@
+import { TCategoryData } from "@/types/TCategory";
 import {
   BaggageClaim,
   Edit3,
@@ -32,7 +33,7 @@ const Routes = [
     link: "/admin/create-category",
     icon: <Edit3 className="h-6 w-6" />,
   },
- 
+
   {
     title: "Products",
     link: "/admin/products",
@@ -74,4 +75,15 @@ export const HomeRoutes = [
     link: "/products",
     icon: <PackageOpen className="h-6 w-6" />,
   },
-]
+];
+
+export const selectData = (data: TCategoryData[], name: string) => {
+  const res = data?.filter(
+    (item: { categoryType: string; _id: string }) => item.categoryType === name
+  );
+  const result = res?.map((item: { slug: string; _id: string }) => ({
+    label: item.slug,
+    value: item._id,
+  }));
+  return result
+};

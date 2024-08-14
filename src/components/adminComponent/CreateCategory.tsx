@@ -9,28 +9,33 @@ import { Button } from "../ui/button";
 import { selectOption } from "../form/SelectOption";
 import { FormField, FormItem, FormLabel } from "../ui/form";
 import { Input } from "../ui/input";
+import { useCreateCategoryMutation } from "@/redux/features/admin/CategorySlice";
+import { toast } from "react-toastify";
 
 const CreateCategory = () => {
+  const [Category] = useCreateCategoryMutation()
   const selectData = selectOption(["primary", "secondary", "tertiary"]);
   const productSubmint = async(event: FieldValues) => {
+    console.log(event)
     const {image, ...eventData} = event
     eventData.slug = event.name + "-" + event.categoryType;
 
     try {
       const ApiKey = "35ad74456a84c96fea6c9d9aedd15a97";
       const url = `https://api.imgbb.com/1/upload?key=${ApiKey}`;
-    const imageUrl = image[0];
     const formData = new FormData();
-    formData.append("image", imageUrl);
-    const res = await fetch(url, { method: "POST", body: formData });
-    const result = await res.json();
-    if (!result.success) {
-      return (result.error);
+    formData.append("image", image);
+    const respons = await fetch(url, { method: "POST", body: formData });
+    const result = await respons.json();
+    const res= await Category({...eventData, thumbnail:result?.data?.url })
+    
+    if(res?.data?.success){
+      toast.success(res?.data?.message)
     }
-    } catch (error) {
-      
-      console.log(error);
-    }
+    console.log(res);
+  } catch (error: any) {
+    toast.error(error?.data?.message || error?.message);
+  }
   };
   return (
     <RHForm onSubmit={productSubmint}>

@@ -38,7 +38,7 @@ const PHSelect = ({label, name, options, placeholder} : TSelectProps) => {
           </FormControl>
           <SelectContent>
             {
-              options?.map((item) =><SelectItem value={item?.value}>{item.label}</SelectItem>
+              options?.map((item) =><SelectItem value={item?.value}>{item?.label}</SelectItem>
             )
             }
             
