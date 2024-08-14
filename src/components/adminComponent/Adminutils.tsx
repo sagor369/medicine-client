@@ -45,6 +45,11 @@ const Routes = [
   {
     title: "Products Variants",
     link: "/admin/variants",
+    icon: <ReplaceAll className="h-6 w-6" />,
+  },
+  {
+    title: "Create Variants",
+    link: "/admin/create-variants",
     icon: <ScrollText className="h-6 w-6" />,
   },
 

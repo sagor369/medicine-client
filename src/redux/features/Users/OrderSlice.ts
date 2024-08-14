@@ -1,8 +1,8 @@
 import { baseAPi } from "@/redux/api/BaseApi";
 
-const ProductApi = baseAPi.injectEndpoints({
+const OrdersApi = baseAPi.injectEndpoints({
   endpoints: (build) => ({
-    getProduct: build.query({
+    getOrders: build.query({
       query: (query) => {
         const params = new URLSearchParams();
         if (query) {
@@ -12,55 +12,55 @@ const ProductApi = baseAPi.injectEndpoints({
         }
         return {
           method: "GET",
-          url: "/products",
+          url: "/orders",
           params,
         };
       },
-      providesTags: ["products"],
+      providesTags: ["orders"],
     }),
-    getSingleProduct: build.query({
+    getSingleOrders: build.query({
       query: (id) => {
         return {
           method: "GET",
-          url: `/products/${id}`,
+          url: `/orderss/${id}`,
         };
       },
     }),
-    createProduct: build.mutation({
+    createOrders: build.mutation({
       query: (body) => ({
         method: "POST",
-        url: "/products/create-product",
+        url: "/orders/create-order",
         body,
       }),
-      invalidatesTags: ["products"],
+      invalidatesTags: ["orders"],
     }),
-    updateProduct: build.mutation({
+    updateOrders: build.mutation({
       query: (query) => {
         const { id, ...body } = query;
         return {
           method: "PATCH",
-          url: `/products/${id}`,
+          url: `/orders/${id}`,
           body,
         };
       },
-      invalidatesTags: ["products"],
+      invalidatesTags: ["orders"],
     }),
-    deleteProduct: build.mutation({
+    deleteOrders: build.mutation({
       query: (id) => {
         return {
           method: "DELETE",
-          url: `/products/${id}`,
+          url: `/orders/${id}`,
         };
       },
-      invalidatesTags: ["products"],
+      invalidatesTags: ["orders"],
     }),
   }),
 });
 
 export const {
-  useGetProductQuery,
-  useGetSingleProductQuery,
-  useCreateProductMutation,
-  useUpdateProductMutation,
-  useDeleteProductMutation,
-} = ProductApi;
+  useGetOrdersQuery,
+  useGetSingleOrdersQuery,
+  useCreateOrdersMutation,
+  useUpdateOrdersMutation,
+  useDeleteOrdersMutation,
+} = OrdersApi;

@@ -1,8 +1,8 @@
 import { baseAPi } from "@/redux/api/BaseApi";
 
-const ProductApi = baseAPi.injectEndpoints({
+const VariantsApi = baseAPi.injectEndpoints({
   endpoints: (build) => ({
-    getProduct: build.query({
+    getVariants: build.query({
       query: (query) => {
         const params = new URLSearchParams();
         if (query) {
@@ -12,55 +12,55 @@ const ProductApi = baseAPi.injectEndpoints({
         }
         return {
           method: "GET",
-          url: "/products",
+          url: "/variants",
           params,
         };
       },
-      providesTags: ["products"],
+      providesTags: ["variants"],
     }),
-    getSingleProduct: build.query({
+    getSingleVariants: build.query({
       query: (id) => {
         return {
           method: "GET",
-          url: `/products/${id}`,
+          url: `/variantss/${id}`,
         };
       },
     }),
-    createProduct: build.mutation({
+    createVariants: build.mutation({
       query: (body) => ({
         method: "POST",
-        url: "/products/create-product",
+        url: "/variants/create-variants",
         body,
       }),
-      invalidatesTags: ["products"],
+      invalidatesTags: ["variants"],
     }),
-    updateProduct: build.mutation({
+    updateVariants: build.mutation({
       query: (query) => {
         const { id, ...body } = query;
         return {
           method: "PATCH",
-          url: `/products/${id}`,
+          url: `/variants/${id}`,
           body,
         };
       },
-      invalidatesTags: ["products"],
+      invalidatesTags: ["variants"],
     }),
-    deleteProduct: build.mutation({
+    deleteVariants: build.mutation({
       query: (id) => {
         return {
           method: "DELETE",
-          url: `/products/${id}`,
+          url: `/variants/${id}`,
         };
       },
-      invalidatesTags: ["products"],
+      invalidatesTags: ["variants"],
     }),
   }),
 });
 
 export const {
-  useGetProductQuery,
-  useGetSingleProductQuery,
-  useCreateProductMutation,
-  useUpdateProductMutation,
-  useDeleteProductMutation,
-} = ProductApi;
+  useGetVariantsQuery,
+  useGetSingleVariantsQuery,
+  useCreateVariantsMutation,
+  useUpdateVariantsMutation,
+  useDeleteVariantsMutation,
+} = VariantsApi;

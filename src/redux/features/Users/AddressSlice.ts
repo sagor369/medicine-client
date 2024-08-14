@@ -1,8 +1,8 @@
 import { baseAPi } from "@/redux/api/BaseApi";
 
-const ProductApi = baseAPi.injectEndpoints({
+const AddressApi = baseAPi.injectEndpoints({
   endpoints: (build) => ({
-    getProduct: build.query({
+    getAddress: build.query({
       query: (query) => {
         const params = new URLSearchParams();
         if (query) {
@@ -12,55 +12,55 @@ const ProductApi = baseAPi.injectEndpoints({
         }
         return {
           method: "GET",
-          url: "/products",
+          url: "/address",
           params,
         };
       },
-      providesTags: ["products"],
+      providesTags: ["address"],
     }),
-    getSingleProduct: build.query({
+    getSingleAddress: build.query({
       query: (id) => {
         return {
           method: "GET",
-          url: `/products/${id}`,
+          url: `/addresss/${id}`,
         };
       },
     }),
-    createProduct: build.mutation({
+    createAddress: build.mutation({
       query: (body) => ({
         method: "POST",
-        url: "/products/create-product",
+        url: "/address/create-address",
         body,
       }),
-      invalidatesTags: ["products"],
+      invalidatesTags: ["address"],
     }),
-    updateProduct: build.mutation({
+    updateAddress: build.mutation({
       query: (query) => {
         const { id, ...body } = query;
         return {
           method: "PATCH",
-          url: `/products/${id}`,
+          url: `/address/${id}`,
           body,
         };
       },
-      invalidatesTags: ["products"],
+      invalidatesTags: ["address"],
     }),
-    deleteProduct: build.mutation({
+    deleteAddress: build.mutation({
       query: (id) => {
         return {
           method: "DELETE",
-          url: `/products/${id}`,
+          url: `/address/${id}`,
         };
       },
-      invalidatesTags: ["products"],
+      invalidatesTags: ["address"],
     }),
   }),
 });
 
 export const {
-  useGetProductQuery,
-  useGetSingleProductQuery,
-  useCreateProductMutation,
-  useUpdateProductMutation,
-  useDeleteProductMutation,
-} = ProductApi;
+  useGetAddressQuery,
+  useGetSingleAddressQuery,
+  useCreateAddressMutation,
+  useUpdateAddressMutation,
+  useDeleteAddressMutation,
+} = AddressApi;

@@ -18,7 +18,6 @@ const CreateProductForm = () => {
         formData.append("photos", item);
       }
     }
-    
   };
   return (
     <RHForm onSubmit={productSubmint}>
@@ -38,25 +37,26 @@ const CreateProductForm = () => {
         />
       </div>
       <div className="grid grid-cols-3 items-center gap-4 mt-4">
-        <FormField
-          name="photos"
-          render={({ field: { onChange, value, ...field } }) => (
-            <FormItem>
-              <FormLabel>photos</FormLabel>
-              <Input
-                style={{ height: "40px" }}
-                {...field}
-                multiple
-                value={value?.fileName}
-                onChange={(e) => onChange(e.target.files)}
-                type="file"
-              />
-            </FormItem>
-          )}
-        />
+        <RHInput name="brand" placeholder="Brand name" label="Brand Name" />
         <RHInput name="discount" placeholder="discount" label="Discount" />
         <RHInput name="price" placeholder="product Price" label="Price" />
       </div>
+      <FormField
+        name="photos"
+        render={({ field: { onChange, value, ...field } }) => (
+          <FormItem>
+            <FormLabel>photos</FormLabel>
+            <Input
+              style={{ height: "40px" }}
+              {...field}
+              multiple
+              value={value?.fileName}
+              onChange={(e) => onChange(e.target.files)}
+              type="file"
+            />
+          </FormItem>
+        )}
+      />
       <div className="flex justify-center mt-4">
         <p className="mt-4">product category</p>
       </div>

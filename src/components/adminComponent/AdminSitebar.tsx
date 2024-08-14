@@ -7,7 +7,7 @@ import { UserCircle } from "lucide-react";
 
 const AdminSitebar = () => {
   return (
-    <div className="bg-gray-500 bg-opacity-25 min-h-[100vh] px-4 py-8">
+    <div className="bg-gray-500 bg-opacity-25 min-h-[100vh] h-full px-4 py-8">
       <div className="flex gap-4 items-center">
         <div>
           <UserCircle className="size-10"/>

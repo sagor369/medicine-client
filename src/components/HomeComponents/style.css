@@ -1,0 +1,36 @@
+.swiper-button-next:after,
+.swiper-button-prev:after{
+  font-size: 24px;
+  color: white;
+}
+.swiper-button-prev , .swiper-button-next{
+  padding:0 20px;
+  background-color: #166534;
+  border-radius: 10px;
+  
+  
+}
+.swiper-pagination-bullet {
+  background-color: hsl(199, 87%, 47%);
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+}
+.swiper-pagination-bullet-active {
+  background-color: #f4fbf1;
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  color: #ffffff65;
+
+}
+
+ @media (max-width: 766px) {
+  .swiper-button-next:after,
+  .swiper-button-prev:after{
+    font-size: 16px;
+  }
+  .swiper-button-prev , .swiper-button-next{
+    padding:0 16px;
+    
+  }}

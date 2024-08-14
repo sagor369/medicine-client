@@ -19,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="grid grid-cols-4 gap-4 ">
+        <div className="grid grid-cols-4 gap-4  bg-primary bg-opacity-10">
           <div className="col-span-1">
             <AdminSitebar />
           </div>
