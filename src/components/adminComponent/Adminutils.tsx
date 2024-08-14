@@ -1,6 +1,7 @@
 import {
   BaggageClaim,
   Edit3,
+  Home,
   Layers3,
   LayoutDashboard,
   PackageOpen,
@@ -61,3 +62,16 @@ const Routes = [
 ];
 
 export default Routes;
+
+export const HomeRoutes = [
+  {
+    title: "Home",
+    link: "/",
+    icon: <Home className="h-6 w-6" />,
+  },
+  {
+    title: "Products",
+    link: "/products",
+    icon: <PackageOpen className="h-6 w-6" />,
+  },
+]

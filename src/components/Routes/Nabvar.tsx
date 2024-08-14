@@ -38,22 +38,14 @@ const Nabvar = () => {
       </Link>
       <NavigationMenu>
         <NavigationMenuList>
-          <NavigationMenuItem >
-            <Link  href={"/products"} legacyBehavior passHref>
-              <NavigationMenuLink className="hover:border-b border-black p-2 font-semibold" >
+          <NavigationMenuItem>
+            <Link href={"/products"} legacyBehavior passHref>
+              <NavigationMenuLink className="hover:border-b border-black p-2 font-semibold">
                 Products
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>
 
-          <NavigationMenuItem >
-            <NavigationMenuTrigger >Product Category</NavigationMenuTrigger>
-            <NavigationMenuContent >
-              <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-                <li>hello</li>
-              </ul>
-            </NavigationMenuContent>
-          </NavigationMenuItem>
           {user && (
             <NavigationMenuItem>
               <Link

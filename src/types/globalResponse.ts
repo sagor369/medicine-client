@@ -1,6 +1,6 @@
 import { BaseQueryApi } from "@reduxjs/toolkit/query";
 
-type errorResponse = {
+export type errorResponse = {
   data: {
     success: boolean;
     message: string;

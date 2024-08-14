@@ -12,9 +12,25 @@ import { Input } from "../ui/input";
 
 const CreateCategory = () => {
   const selectData = selectOption(["primary", "secondary", "tertiary"]);
-  const productSubmint = (event: FieldValues) => {
-    event.slug = event.name + "-" + event.categoryType;
-    console.log(event);
+  const productSubmint = async(event: FieldValues) => {
+    const {image, ...eventData} = event
+    eventData.slug = event.name + "-" + event.categoryType;
+
+    try {
+      const ApiKey = "35ad74456a84c96fea6c9d9aedd15a97";
+      const url = `https://api.imgbb.com/1/upload?key=${ApiKey}`;
+    const imageUrl = image[0];
+    const formData = new FormData();
+    formData.append("image", imageUrl);
+    const res = await fetch(url, { method: "POST", body: formData });
+    const result = await res.json();
+    if (!result.success) {
+      return (result.error);
+    }
+    } catch (error) {
+      
+      console.log(error);
+    }
   };
   return (
     <RHForm onSubmit={productSubmint}>

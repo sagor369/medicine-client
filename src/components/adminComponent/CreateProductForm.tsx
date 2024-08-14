@@ -8,16 +8,29 @@ import { Separator } from "../ui/separator";
 import { Button } from "../ui/button";
 import { FormField, FormItem, FormLabel } from "../ui/form";
 import { Input } from "../ui/input";
+import { toast } from "react-toastify";
 
 const CreateProductForm = () => {
-  const productSubmint = (event: FieldValues) => {
-    event.slug = event?.name + "_" + event?.metakey;
+  const productSubmint = async(event: FieldValues) => {
+    const ApiKey = "35ad74456a84c96fea6c9d9aedd15a97";
+      const url = `https://api.imgbb.com/1/upload?key=${ApiKey}`;
+    const {photos, ...eventData} = event
+      eventData.slug = event?.name + "_" + event?.metakey;
     const formData = new FormData();
     if (event?.photos?.length >= 0) {
       for (const item of event?.photos) {
         formData.append("photos", item);
       }
     }
+    try {
+      const res = await fetch(url, { method: "POST", body: formData });
+    const result = await res.json();
+
+    
+    } catch (error:any) {
+      toast.error(error?.data?.message || "image hosting problem")
+    }
+    
   };
   return (
     <RHForm onSubmit={productSubmint}>
