@@ -24,8 +24,8 @@ export default function RootLayout({
             <AdminSitebar />
           </div>
           <div className="col-span-3 px-4">
-            {/* <AdminProtected>{children}</AdminProtected> */}
-            {children}
+            <AdminProtected>{children}</AdminProtected>
+            {/* {children} */}
           </div>
         </div>
       </body>

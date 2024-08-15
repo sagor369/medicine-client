@@ -1,84 +1,59 @@
-import React from 'react';
+"use client"
+import React from "react";
 import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-  } from "@/components/ui/table";
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { Button } from "@/components/ui/button";
+import { Edit2Icon, Minus, Plus, Trash } from "lucide-react";
+import { minusQuantity, removeCart, updateQuantity } from "@/redux/features/Products/ProductManagment";
 
 const CartTable = () => {
-    const invoices = [
-        {
-          invoice: "INV001",
-          paymentStatus: "Paid",
-          totalAmount: "$250.00",
-          paymentMethod: "Credit Card",
-        },
-        {
-          invoice: "INV002",
-          paymentStatus: "Pending",
-          totalAmount: "$150.00",
-          paymentMethod: "PayPal",
-        },
-        {
-          invoice: "INV003",
-          paymentStatus: "Unpaid",
-          totalAmount: "$350.00",
-          paymentMethod: "Bank Transfer",
-        },
-        {
-          invoice: "INV004",
-          paymentStatus: "Paid",
-          totalAmount: "$450.00",
-          paymentMethod: "Credit Card",
-        },
-        {
-          invoice: "INV005",
-          paymentStatus: "Paid",
-          totalAmount: "$550.00",
-          paymentMethod: "PayPal",
-        },
-        {
-          invoice: "INV006",
-          paymentStatus: "Pending",
-          totalAmount: "$200.00",
-          paymentMethod: "Bank Transfer",
-        },
-        {
-          invoice: "INV007",
-          paymentStatus: "Unpaid",
-          totalAmount: "$300.00",
-          paymentMethod: "Credit Card",
-        },
-      ];
-    return (
-        <Table>
+  const { products } = useAppSelector((state) => state.product);
+  const dispatch = useAppDispatch()
+  
+  return (
+    <Table>
       <TableHeader>
         <TableRow>
-          <TableHead className="w-[100px]">ID</TableHead>
           <TableHead>Name</TableHead>
-          <TableHead>Email</TableHead>
-          <TableHead>Role</TableHead>
-          <TableHead>Status</TableHead>
-          <TableHead className="text-right">Category Type</TableHead>
+          <TableHead>Price</TableHead>
+          <TableHead>Quantity</TableHead>
+          <TableHead>Action</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
-        {invoices.map((invoice) => (
-          <TableRow key={invoice.invoice}>
-            <TableCell className="font-medium">{invoice.invoice}</TableCell>
-            <TableCell>{invoice.paymentStatus}</TableCell>
-            <TableCell>{invoice.paymentMethod}</TableCell>
-            <TableCell>{invoice.paymentMethod}</TableCell>
-            <TableCell>{invoice.paymentStatus}</TableCell>
-            <TableCell className="text-right">{invoice.totalAmount}</TableCell>
+        {products.map((item) => (
+          <TableRow key={item.productId}>
+            <TableCell className="font-medium">{item.name}</TableCell>
+            <TableCell>{item.price}</TableCell>
+            <TableCell><div className="flex gap-2 my-4">
+            <Button onClick={()=>dispatch(updateQuantity(item.productId))}>
+              <Plus className="size-6 " />{" "}
+            </Button>
+            <p className="text-2xl font-semibold px-4">{item.quantity}</p>
+            <Button onClick={()=>dispatch(minusQuantity(item.productId))}>
+              <Minus className="size-6" />
+            </Button>
+          </div> </TableCell>
+
+            <TableCell>
+            <div>
+              <Button  className="hover:bg-cyan-700" ><Edit2Icon/></Button>
+              <Button onClick={()=>dispatch(removeCart(item.productId))}  className="bg-red-500 hover:bg-red-800 ml-2 text-white"><Trash/></Button>
+
+              </div>
+            </TableCell>
           </TableRow>
         ))}
       </TableBody>
     </Table>
-    );
+  );
 };
 
 export default CartTable;

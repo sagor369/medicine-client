@@ -1,14 +1,41 @@
+"use client";
 import { Button } from "@/components/ui/button";
-import { Minus, Plus } from "lucide-react";
+import { useGetSingleProductQuery } from "@/redux/features/admin/ProductSlice";
+import { selectCurrentUser } from "@/redux/features/auth/AuthSlice";
+import { AddToCart } from "@/redux/features/Products/ProductManagment";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import Image from "next/image";
-import React from "react";
+import { redirect, useParams } from "next/navigation";
+import { toast } from "react-toastify";
 
 const ProductDetails = () => {
+  const dispatch = useAppDispatch()
+  const { id } = useParams();
+  const user = useAppSelector(selectCurrentUser);
+  const { data, isLoading } = useGetSingleProductQuery(id);
+  console.log(data);
+  const addToCart = () => {
+    const prodactData = {
+      productId: data?.data?._id,
+      name: data?.data?.name,
+      price: data?.data?.price,
+      quantity: 1,
+    };
+    if (!user) {
+      redirect("/login");
+    }
+    dispatch(AddToCart(prodactData));
+    toast.success("product add to cart");
+  };
+  // const { brand, name, price, discount, discription } = data?.data
+  if (isLoading) {
+    return <div>Loading....</div>;
+  }
   return (
     <div className="grid grid-cols-2 gap-4 ">
       <div>
         <Image
-          src={"https://via.placeholder.com/350?text=Sahed"}
+          src={data?.data?.photos[0]}
           alt=""
           width={500}
           height={500}
@@ -16,27 +43,29 @@ const ProductDetails = () => {
         />
       </div>
       <div>
-        <h2 className="text-xl font-bold font-sans py-2">Name: Product Name</h2>
-        <p className="text-lg text-slate-400 my-4">
-          Discription : product discription heire
+        <h2 className="text-xl font-bold font-sans py-2">
+          Name: {data?.data?.name}
+        </h2>
+        <p className="text-lg ">
+          Discription :{" "}
+          <span className="text-slate-400 my-4">{data?.data?.description}</span>
         </p>
-        <p className="text-lg text-slate-400">Product Brand </p>
+        <p className="text-lg ">
+          Product Brand:{" "}
+          <span className="text-slate-400">{data?.data?.brand}</span>{" "}
+        </p>
         <div className="line-through inline-block my-4">
-          <p className="text-lg bg-orange-200  px-4 py-2">Price: $100</p>
+          <p className="text-lg bg-orange-200  px-4 py-2">
+            Price: ${data?.data?.price}
+          </p>
         </div>
-        <p className="text-xl font-sans font-semibold">Discount Price: $100</p>
+        <p className="text-xl font-sans font-semibold">
+          Discount Price: $
+          {((data?.data?.price * data?.data?.discount) / 100).toFixed(2)}
+        </p>
 
         <div className="flex justify-between items-center">
-          <div className="flex gap-2 my-4">
-            <Button>
-              <Plus className="size-6 " />{" "}
-            </Button>
-            <p className="text-2xl font-semibold px-4">1</p>
-            <Button>
-              <Minus className="size-6" />
-            </Button>
-          </div>
-          <Button>Add To Cort</Button>
+          <Button onClick={addToCart}>Add To Cort</Button>
         </div>
       </div>
     </div>

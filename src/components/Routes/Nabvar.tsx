@@ -40,6 +40,13 @@ const Nabvar = () => {
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
+            <Link href={"/"} legacyBehavior passHref>
+              <NavigationMenuLink className="hover:border-b border-black p-2 font-semibold">
+                Home
+              </NavigationMenuLink>
+            </Link>
+          </NavigationMenuItem>
+          <NavigationMenuItem>
             <Link href={"/products"} legacyBehavior passHref>
               <NavigationMenuLink className="hover:border-b border-black p-2 font-semibold">
                 Products

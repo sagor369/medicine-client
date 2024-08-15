@@ -19,7 +19,7 @@ const AddressApi = baseAPi.injectEndpoints({
       providesTags: ["address"],
     }),
     getSingleAddress: build.query({
-      query: (id) => {
+      query: ({id}) => {
         return {
           method: "GET",
           url: `/address/${id}`,

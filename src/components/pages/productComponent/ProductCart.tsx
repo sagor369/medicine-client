@@ -1,3 +1,4 @@
+"use client"
 import { Button } from "@/components/ui/button";
 import { selectCurrentUser } from "@/redux/features/auth/AuthSlice";
 import { AddToCart } from "@/redux/features/Products/ProductManagment";
@@ -7,26 +8,26 @@ import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import React from "react";
+import { toast } from "react-toastify";
 
 const ProductCart = ({ item }: { item: TProduct }) => {
   const user = useAppSelector(selectCurrentUser);
   const { products } = useAppSelector((state) => state.product);
-  const dispatch = useAppDispatch()
-  const addToCart = () =>{
+  const dispatch = useAppDispatch();
+  const addToCart = () => {
     const prodactData = {
-      _id: item._id,
+      productId: item._id,
       name: item.name,
       price: item.price,
-      quantity: 1
+      quantity: 1,
+    };
+    if (!user) {
+      redirect("/login");
     }
-    if(!user){
-      redirect("/login")
-    }
-    dispatch(AddToCart(prodactData))
-
-  }
-  const cartBtn = products.find(({_id}) => _id === item._id)
-
+    dispatch(AddToCart(prodactData));
+    toast.success("product add to cart")
+  };
+  const cartBtn = products.find((pro) => pro.productId  === item._id);
   const price = (item?.price - (item?.price * item?.discount) / 100).toFixed(2);
   return (
     <div className="border p-4 rounded bg-slate-200 relative">
@@ -48,8 +49,8 @@ const ProductCart = ({ item }: { item: TProduct }) => {
       </div>
       <div className="h-56 flex flex-col justify-between">
         <div>
-          <h2 className="text-2xl font-bold font-sans py-2">{item?.name}</h2>
-          <p>{item.description}</p>
+          <h2 className="text-2xl font-bold font-sans py-2 ">{item?.name}</h2>
+          <p className="h-20">{item.description}</p>
           <p className="py-2 text-slate-500">{item?.brand}</p>
         </div>
         <div className="flex justify-between items-end pt-2">
@@ -58,13 +59,13 @@ const ProductCart = ({ item }: { item: TProduct }) => {
             <p className="line-through text-xl text-slate-500">${item.price}</p>
           </div>
           <div>
-            {
-              cartBtn ? (
-                <Button>View Cart</Button>
-              ) : (
-                <Button onClick={addToCart}>Add to Cart</Button>
-              )
-            }
+            {cartBtn ? (
+              <Link href={`/products/${item._id}`}> 
+              <Button>View Cart</Button>
+              </Link>
+            ) : (
+              <Button onClick={addToCart}>Add to Cart</Button>
+            )}
           </div>
         </div>
       </div>

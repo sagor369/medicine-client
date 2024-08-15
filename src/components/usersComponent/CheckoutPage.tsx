@@ -1,10 +1,12 @@
 "use client";
-import { useGetAddressQuery } from "@/redux/features/Users/AddressSlice";
+import { useGetSingleAddressQuery } from "@/redux/features/Users/AddressSlice";
+import { useAppSelector } from "@/redux/hooks";
 import React from "react";
 
 const CheckoutPage = () => {
-  const { data, isLoading } = useGetAddressQuery(undefined);
-  const address = data?.data?.result[0];
+const {address:addressId} = useAppSelector((state)=>state.product)
+  const { data, isLoading } = useGetSingleAddressQuery({id: addressId});
+  const address = data?.data;
   if (isLoading) {
     return <div>Loading...</div>;
   }

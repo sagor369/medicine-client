@@ -12,8 +12,9 @@ const OrderSummery = () => {
   );
   const dispatch = useAppDispatch();
   const clearData = () => {
-    products.map(({ _id }) => {
-      dispatch(removeCart(_id));
+    console.log("hello")
+    products.map((item) => {
+      dispatch(removeCart(item.productId));
     });
   };
   return (
