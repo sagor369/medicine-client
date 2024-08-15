@@ -1,7 +1,6 @@
 "use client"
 import React from "react";
 import PageTitle from "../adminComponent/PageTitle";
-import CategoryCart from "./CategoryCart";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
@@ -10,17 +9,16 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 
 // import required modules
-import { Pagination, Navigation, Autoplay } from "swiper/modules";
+import { Navigation, Autoplay } from "swiper/modules";
+import { useGetCategoryQuery } from "@/redux/features/admin/CategorySlice";
+import Image from "next/image";
 
 const LatestCategory = () => {
-    const data = [
-        {name: "Sahed"},
-        {name: "Tagor"},
-        {name: "Ranto"},
-        {name: "Islam"},
-        {name: "OTC"},
-        {name: "Baby"},
-    ]
+  const {data, isLoading} = useGetCategoryQuery(undefined)
+  if(isLoading){
+    return <div>Loading....</div>
+  }
+    
   return (
     <div className="py-6">
       <div className="flex justify-start">
@@ -48,16 +46,16 @@ const LatestCategory = () => {
             },
           }}
       >
-        {data?.map((item: {name:string}) => (
+        {data?.data?.result?.map((item: {name:string,thumbnail:string, _id: string }) => (
 
           <SwiperSlide>
-            <CategoryCart name={item.name}/>
+            <div>
+            <Image className='w-full h-48 ' src={item.thumbnail} alt='' width={500} height={500}/>
+            <h2 className='text-2xl font-bold font-sans text-slate-500 uppercase bg-primary py-2 text-center'> {item.name}</h2>
+        </div>
           </SwiperSlide>
         ))}
       </Swiper>
-        {/* <div className="grid grid-cols-3 gap-4 items-center py-4">
-            {data.map((item:{name: string})=> <CategoryCart name={item.name}/>)}
-        </div> */}
     </div>
   );
 };

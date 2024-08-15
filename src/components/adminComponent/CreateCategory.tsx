@@ -11,9 +11,10 @@ import { FormField, FormItem, FormLabel } from "../ui/form";
 import { Input } from "../ui/input";
 import { useCreateCategoryMutation } from "@/redux/features/admin/CategorySlice";
 import { toast } from "react-toastify";
+import { Loader2 } from "lucide-react";
 
 const CreateCategory = () => {
-  const [Category] = useCreateCategoryMutation()
+  const [Category, {isLoading}] = useCreateCategoryMutation()
   const selectData = selectOption(["primary", "secondary", "tertiary"]);
   const productSubmint = async(event: FieldValues) => {
     console.log(event)
@@ -69,9 +70,15 @@ const CreateCategory = () => {
       </div>
 
       <div className="flex justify-center">
+      {
+          isLoading ?<Button disabled className="mt-4 w-96">
+          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+          Please wait
+        </Button> :
         <Button className="mt-4 w-96" type="submit">
           Submit
         </Button>
+        }
       </div>
     </RHForm>
   );

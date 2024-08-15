@@ -6,7 +6,7 @@ const ProductApi = baseAPi.injectEndpoints({
       query: (query) => {
         const params = new URLSearchParams();
         if (query) {
-          query.forEach((item: { name: string; value: string }) => {
+          query.map((item: { name: string; value: string }) => {
             params.append(item.name, item.value);
           });
         }

@@ -1,41 +1,70 @@
 import { Button } from "@/components/ui/button";
+import { selectCurrentUser } from "@/redux/features/auth/AuthSlice";
+import { AddToCart } from "@/redux/features/Products/ProductManagment";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { TProduct } from "@/types/TProducts";
 import Image from "next/image";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import React from "react";
 
-const ProductCart = () => {
+const ProductCart = ({ item }: { item: TProduct }) => {
+  const user = useAppSelector(selectCurrentUser);
+  const { products } = useAppSelector((state) => state.product);
+  const dispatch = useAppDispatch()
+  const addToCart = () =>{
+    const prodactData = {
+      _id: item._id,
+      name: item.name,
+      price: item.price,
+      quantity: 1
+    }
+    if(!user){
+      redirect("/login")
+    }
+    dispatch(AddToCart(prodactData))
+
+  }
+  const cartBtn = products.find(({_id}) => _id === item._id)
+
+  const price = (item?.price - (item?.price * item?.discount) / 100).toFixed(2);
   return (
     <div className="border p-4 rounded bg-slate-200 relative">
       <div className="absolute top-2 left-2">
         <p className="bg-red-600  font-bold rounded-l-3xl rounded-r-md py-1 px-4 inline-block text-white">
-          10% off
+          {item?.discount}% off
         </p>
       </div>
       <div>
-        <Link href={`/products/${1}`}>
-
-        <Image
-          className="w-full h-48 rounded"
-          src={"https://via.placeholder.com/350?text=Sahed"}
-          alt=""
-          width={500}
-          height={500}
-        />
+        <Link href={`/products/${item?._id}`}>
+          <Image
+            className="w-full h-48 rounded"
+            src={item?.photos[0]}
+            alt=""
+            width={500}
+            height={500}
+          />
         </Link>
       </div>
       <div className="h-56 flex flex-col justify-between">
         <div>
-          <h2 className="text-2xl font-bold font-sans ">{"Sahdiul Islam"}</h2>
-          <p>{"Discription "}</p>
-          <p>Brand name</p>
+          <h2 className="text-2xl font-bold font-sans py-2">{item?.name}</h2>
+          <p>{item.description}</p>
+          <p className="py-2 text-slate-500">{item?.brand}</p>
         </div>
         <div className="flex justify-between items-end pt-2">
           <div>
-            <p className="text-2xl text-orange-400 font-bold"> $50 </p>
-            <p className="line-through text-xl text-slate-500">$60</p>
+            <p className="text-2xl text-orange-400 font-bold"> ${price} </p>
+            <p className="line-through text-xl text-slate-500">${item.price}</p>
           </div>
           <div>
-            <Button>Add to Cart</Button>
+            {
+              cartBtn ? (
+                <Button>View Cart</Button>
+              ) : (
+                <Button onClick={addToCart}>Add to Cart</Button>
+              )
+            }
           </div>
         </div>
       </div>

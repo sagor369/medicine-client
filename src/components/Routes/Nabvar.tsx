@@ -20,6 +20,7 @@ import { USER_ROLE } from "@/types/TCreateUser";
 const Nabvar = () => {
   const user = useAppSelector(selectCurrentUser);
   const dispatch = useAppDispatch();
+  const {products} = useAppSelector((state) =>state.product)
   const route = useRouter();
 
   const logoutHandle = () => {
@@ -83,6 +84,7 @@ const Nabvar = () => {
         )}
         <Link href={"/add-cart"}>
           <Button className="bg-transparent border border-black">
+             <sup className="text-red-500 text-lg ">{products.length}</sup>
             <ShoppingBag />
           </Button>
         </Link>

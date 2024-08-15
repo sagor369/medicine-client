@@ -8,7 +8,7 @@ export type TProduct = {
   metaKey: string;
   price: number;
   isDeleted: boolean;
-  discount?: number;
+  discount: number;
   stockStatus: boolean;
   status: "active" | "inactive";
   categories: {

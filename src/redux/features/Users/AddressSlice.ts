@@ -22,7 +22,7 @@ const AddressApi = baseAPi.injectEndpoints({
       query: (id) => {
         return {
           method: "GET",
-          url: `/addresss/${id}`,
+          url: `/address/${id}`,
         };
       },
     }),
